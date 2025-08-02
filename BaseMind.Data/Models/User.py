@@ -27,3 +27,17 @@ class User:
             'last_activity': self.last_activity,
             'message_count': self.message_count
         }
+    
+    @classmethod
+    def from_dictionary(cls, data: Dict[str, Any]) -> 'User':
+        return cls(
+            user_id=int(data['user_id']),
+            first_name=data.get('first_name', ''),
+            last_name=data.get('last_name', ''),
+            username=data.get('username', ''),
+            is_bot=data.get('is_bot', False),
+            language_code=data.get('language_code', 'en'),
+            join_date=datetime.strptime(data.get('join_date', datetime.now().strftime('%Y-%m-%d %H:%M:%S')), '%Y-%m-%d %H:%M:%S'),
+            last_activity=datetime.strptime(data.get('last_activity', datetime.now().strftime('%Y-%m-%d %H:%M:%S')), '%Y-%m-%d %H:%M:%S'),
+            message_count=data.get('message_count', 0)
+        )
